@@ -92,17 +92,13 @@
 
 \begin{frame}
 	\frametitle{Our compromises}
-	Informally:
-	\begin{enumerate}
-		\item Determine losses
-		\item Determine the most equal losses
-		\item Choose some alternatives with most equal losses
-	\end{enumerate}
+	Our compromises attempt to equalize “losses”
+
 	Formally:
 	\begin{enumerate}
-		\item Define $\lambda_{\prof}$ that, given $\prof$, obtain loss vectors
-		\item Define $\sigma$, an inequality measure over loss vectors
-		\item Define two classes of rules using $\sigma$ and $\lambda_{\prof}$
+		\item $\lambda_{\prof}: \allalts → \intvl{0, m - 1}^\voters$ determines the \emph{loss vectors}
+		\item $\sigma: \intvl{0, m - 1}^N → \R^+$ compares loss vectors by \emph{inequality}
+		\item Define two classes of rules on the basis of $\sigma$ and $\lambda_{\prof}$
 	\end{enumerate}
 \end{frame}
 
@@ -196,7 +192,7 @@
 	\begin{block}{Egalitarian compromise compatibility}
 		An \ac{SCR} $f$ is \ac{ECC} iff 
 		\begin{equation}
-			\exists \sigma \in \Sigma \suchthat \forall \prof \in \linors^N: f(\prof) \cap \argmin_A (\sigma \circ \lambda_{\prof}) ≠ \emptyset
+			\exists \sigma \in \Sigma \suchthat \forall \prof \in \linors^N: f(\prof) \cap \argmin_\allalts (\sigma \circ \lambda_{\prof}) ≠ \emptyset
 		\end{equation}
 	\end{block}
 \end{frame}
