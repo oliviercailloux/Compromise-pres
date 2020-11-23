@@ -9,12 +9,12 @@
 %\setbeamertemplate{headline}[singleline]
 %\setbeamertemplate{footline}[onlypage]
 
-\title[Title]{The title}
-\subject{Ze subject}
-\keywords{key, koy}
-\author{\emph{Olivier Cailloux} \inst{1} \and Name \inst{2}}
-\institute[LAMSADE]{\inst{1} LAMSADE, Université Paris-Dauphine \and \inst{2} Institute}
-\date{\formatdate{22}{1}{2019}}
+\title{Ex-ante versus ex-post compromises}
+\subject{Social choice}
+\keywords{axiomatics, preference aggregation}
+\author[B.\ Napolitano, \emph{Olivier Cailloux}, R.\ Sanver]{Beatrice Napolitano \and \emph{Olivier Cailloux} \and Remzi Sanver}
+\institute[LAMSADE]{LAMSADE, Université Paris-Dauphine}
+\date{\formatdate{24}{11}{2020}}
 
 \begin{document}
 \begin{frame}[plain]
@@ -26,13 +26,8 @@
 			\includegraphics[height=1cm]{LAMSADE95.jpg}
 		};
 		\path (current page.south) ++ (0, 4em) node[anchor=south, inner sep=0] {
-			\scriptsize\textcolor{blue}{\url{https://github.com/oliviercailloux/REPO}}
+			\scriptsize\textcolor{blue}{\url{https://github.com/oliviercailloux/Compromise-pres}}
 		};
-%thanks to https://stackoverflow.com/questions/2423777/is-it-possible-to-create-a-remote-repo-on-github-from-the-cli-without-opening-br/13366414#13366414
-%REPO=…
-%curl -u 'oliviercailloux' https://api.github.com/user/repos -d "{\"name\":\"${REPO}\"}"
-%git remote add origin git@github.com:oliviercailloux/${REPO}.git
-%git push --set-upstream origin master
 	}
 	\titlepage
 \end{frame}
@@ -45,7 +40,7 @@
 			\item But some arguably less than others (e.\ g.\ plurality)
 			\item Let’s investigate the notion of compromise
 			\item Several rules explicitly about (some understanding of) compromise
-			\item Ours: intuition given by Jean-François Lalier based on the everyday understanding of compromise
+			\item Ours: intuition given by Jean-François Laslier based on the everyday understanding of compromise
 			\item Think about a compromise out of a negociation session between political parties
 		\end{itemize}
 	\begin{block}{The notion of compromise for this talk}
@@ -68,16 +63,8 @@
 	\end{frame}
 }
 
-%- Basic notions
-%- Ex-post compromises
-%- 3 individuals: Several SCRs fail to pick an ex-post compromise
-%- 2 individuals: failure to pick an ex-post compromise
-%- Appendix: I put a before b from my own perspective; but considering 1’s POV, I prefer b to a: either because I am envious, or even one could say that my objective interest is that b > a, even when I ignore that a is there. When my pref chg because of someone else, it is considered envy, but it may be about my interest.
-%- Not ashamed of this very egalitarian focus but we’re willing to compromise to cope with classical demands of our fellow economist colleagues.
-%Appr_quant = n is FB. Appr_quant = q is BK. Appr_quant = n/2 is MC = Bucklin.
-
-\section{Basic notions}
-\subsection{Context}
+\section{Ex-post compromises}
+\subsection{Introduction}
 \begin{frame}
 	\frametitle{Context}
 	\begin{itemize}
@@ -85,10 +72,10 @@
 		\item $\allalts$ the alternatives; $\card{\allalts} = m$; $a, b, x, y \in \allalts$
 		\item $\linors$, ${\prefi} \in \linors$ a linear order over $\allalts$
 		\item $\prof \in \linors^\voters$ a profile
-		\item $\powersetz{A}$ the possible winners (the non-empty subsets of $A$)
-		\item $f: \linors^\voters → \powersetz{A}$ a \ac{SCR}
+		\item $\powersetz{\allalts}$ the possible winners (the non-empty subsets of $\allalts$)
+		\item $f: \linors^\voters → \powersetz{\allalts}$ a \ac{SCR}
 	\end{itemize}
-	\begin{example}[A profile]
+	\begin{example}
 		\centering
 		\begin{tikzpicture}
 			\path node (P) {$\prof$};
@@ -98,88 +85,11 @@
 					2 & c \pref_2 b \pref_2 a\\%
 				\end{array}%
 			$};
+			\path (profile.east) ++ (3cm, 0) node (f) {$\emptyset ≠ f(\prof) \subseteq \set{a, b, c}$};
 		\end{tikzpicture}
 	\end{example}
 \end{frame}
 
-\subsection{Some rules}
-\begin{frame}
-	\frametitle{Plurality}
-	Plurality selects the alternatives most often at first rank
-	\begin{example}[Plurality]
-		$\begin{array}{r@{\hspace{1mm} \mapsto \hspace{1mm}}l}
-			1 & a \pref b \pref c \pref d\\%
-			2 & a \pref b \pref c \pref d\\%
-			3 & b \pref c \pref d \pref a\\%
-			4 & c \pref b \pref d \pref a\\%
-			5 & d \pref b \pref c \pref a\\%
-		\end{array}$
-		\hspace{2cm} Plurality selects? \onslide<2>{$\set{a}$}
-		
-		\vspace{1em}
-		Here, Plurality only “considers” a minority of individuals.
-	\end{example}
-\end{frame}
-
-\begin{frame}
-	\frametitle{BK compromise}
-	\citet{Brams2001} compromise
-	\begin{itemize}
-		\item Denoted by $\BK[q]$, with $n / 2 ≤ q ≤ n$
-		\item A voter \emph{supports} an alternative at rank $r$ iff she places this alternative at $r$ or better
-		\item $\rho_q$: best rank for which some alternative receives $≥ q$ supports
-		\item $\BK$ selects the best supported alternatives at rank $\rho_q$
-	\end{itemize}
-	\begin{example}[{$\BK[3]$}]
-		$\begin{array}{r@{\hspace{1mm} \mapsto \hspace{1mm}}l}
-			1 & a \pref b \pref c \pref d\\%
-			2 & c \pref b \pref a \pref d\\%
-			3 & b \pref c \pref d \pref a\\%
-			4 & c \pref a \pref d \pref b\\%
-			5 & d \pref c \pref b \pref a\\%
-		\end{array}$
-		\hspace{2cm} $\BK[3]$ selects? \onslide<2>{$\set{c}$ ($\rho_3 = 2$)}
-	\end{example}
-\end{frame}
-
-\begin{frame}
-	\frametitle{Majoritarian compromise}
-	\begin{itemize}
-		\item $\BK[\ceil{n / 2}]$ : Majoritarian compromise \citep{Sertel1999}
-		\item Also “Bucklin” \citep{Erdelyi2015}
-	\end{itemize}
-	\begin{block}{\citet[abstract]{Sertel1999}}
-		\og{}The Majoritarian Compromise is “majoritarian approving” i.e. it always picks “what’s good for a majority” (alternatives which some majority regards as among the better “effective” half of the available alternatives).\fg{}
-	\end{block}
-\end{frame}
-
-\begin{frame}
-	\frametitle{Fallback bargaining}
-	\begin{itemize}
-		\item $\BK[n]$ : Fallback bargaining
-		\item Proposed in the context of bargaining
-		\item We will come back to it!
-	\end{itemize}
-\end{frame}
-
-\begin{frame}
-	\frametitle{A compromise may be exclusively ex-ante}
-	\begin{example}[{$\BK[51]$}]
-		$\begin{array}{rl}
-			49\text{ voters} & a \pref b \pref c\\%
-			51\text{ voters} & c \pref b \pref a\\%
-		\end{array}$
-		\hspace{2cm} $\BK[51]$ selects? \onslide<2>{$\set{c}$ ($\rho_3 = 1$)}
-	\end{example}
-	\begin{itemize}
-		\item Actually \emph{nobody} conceded anything here
-		\item “Ex-ante” compromise: a priori willingness to compromise may not require compromising
-		\item Observation holds for any $n / 2 < q < n$
-	\end{itemize}
-\end{frame}
-
-\section{Ex-post compromises}
-\subsection{Egalitarian compromises}
 \begin{frame}
 	\frametitle{Our compromises}
 	Informally:
@@ -236,7 +146,7 @@
 	\begin{block}{Inequality measure}
 		\begin{itemize}
 			\item $\sigma: \intvl{0, m - 1}^N → \R^+$
-			\item $\sigma(l) = 0 ⇔ l = (k)_{i \in N}$ for some $k$
+			\item $\sigma(l) = 0 ⇔ l = (k)_{i \in N}$ for some $k \in \intvl{0, m - 1}$
 			\item $\Sigma$ the set of $\sigma$ satisfying the above
 		\end{itemize}
 	\end{block}
@@ -244,10 +154,10 @@
 
 \begin{frame}[fragile]
 	\frametitle{Minimizing loss vectors}
-	Given $\alts \subseteq \allalts$ and $s: \alts → \R$,
+	Given $\alts \subseteq \allalts$ and $g: \alts → \R$,
 	\begin{align}
-		\argmin_{x \in \alts}s(x) &= \set{x \in \alts \suchthat s(x) ≤ s(y), \forall y \in \alts}\\
-		&= \argmin_\alts s
+		\argmin_{x \in \alts}g(x) &= \set{x \in \alts \suchthat g(x) ≤ g(y), \forall y \in \alts}\\
+		&= \argmin_\alts g
 	\end{align}
 	\begin{example}[A profile, its loss vectors and the $\sigma$-minimizer]
 		\centering
@@ -270,15 +180,16 @@
 			\path[draw, ->] (P) to (L);
 			\path (losses.south) ++ (0, -1cm) coordinate (h2);
 			\path ($(P)!.5!(L)$) coordinate (v2);
-			\path (h2 -| v2) node (S) {$\set{b}$};
+			\path (h2 -| v2) node (S) {{\visible<1>{\makebox[0pt]{\hspace{3ex}?}}}{\visible<2->{$\set{b}$}}};
 			\path[draw, ->] (losses.south) -- (S) node[pos=0.5, anchor=north west, inner sep=0, outer sep=0] {$\argmin_{x \in \allalts} \sigma(\lambda_{\prof}(x))$};
-			\onslide<2>{
+			\onslide<3>{
 				\path[draw, ->] (profile.south) -- (S) node[pos=0.5, anchor=north east, inner sep=0, outer sep=0] {$\argmin_{\allalts} (\sigma \circ \lambda_{\prof})$};
 			}
 		\end{tikzpicture}
 	\end{example}
 \end{frame}
 
+\subsection{Egalitarian compromises}
 \begin{frame}
 	\frametitle{Egalitarian compromises}
 	An \ac{SCR} is \ac{ECC} iff at each profile, it selects some “minimally inegalitarian” alternative.
@@ -292,7 +203,7 @@
 
 \begin{frame}[fragile]
 	\frametitle{Paretianism}
-	\begin{block}{Partetian rules}
+	\begin{block}{Paretian rules}
 		\begin{itemize}
 			\item $\PD(\prof) = \set{x \in \allalts \suchthat \exists y \in \allalts \suchthat y \prefi x, \forall i \in N}$
 			\item $\PO(\prof) = \allalts \setminus \PD(\prof)$
@@ -301,7 +212,7 @@
 	\end{block}
 	\begin{example}
 		$\begin{array}{r@{\hspace{1mm} \mapsto \hspace{1mm}}l}
-			1 & a \pref b \pref c \pref d\\%
+			1 & a \pref c \pref b \pref d\\%
 			2 & c \pref d \pref a \pref b\\%
 		\end{array}$%
 		\hspace{2cm} $\PD = \only<1>{\text{?}}\onslide<2>{\set{b, d}}$
@@ -310,7 +221,7 @@
 
 \begin{frame}[fragile]
 	\frametitle{Equality and Pareto dominance}
-	\ac{ECC} rules are \emph{very} pro-equality
+	\ac{ECC} rules are \emph{very} egalitarian
 	\begin{example}
 		\centering
 		\begin{tikzpicture}
@@ -354,9 +265,9 @@
 			n - 1 &\text{ voters} & a_2 \pref a_3 \pref a_1 \pref x\\%
 		\end{array}$%
 		\begin{itemize}
-			\item $\argmin_\allalts (\sigma \circ \lambda_{\prof}) = \set{x}$
-			\item $f \in ECC ⇒ x \in f(\prof)$
-			\item $f \in \text{ Paretian} ⇒ x \notin f(\prof)$ \qedhere
+			\item $\forall \sigma \in \Sigma: \argmin_\allalts (\sigma \circ \lambda_{\prof}) = \set{x}$
+			\item $f \in \text{ECC} ⇒ x \in f(\prof)$
+			\item $f \in \text{Paretian} ⇒ x \notin f(\prof)$ \qedhere
 		\end{itemize}
 	\end{proof}
 \end{frame}
@@ -368,18 +279,19 @@
 	\begin{block}{Paretian optimal compatibility}
 		An \ac{SCR} $f$ is \ac{PCC} iff 
 		\begin{equation}
-			\exists \sigma \in \Sigma \suchthat \forall \prof \in \linors^N: f(\prof) \cap \argmin_{\PO(A)} (\sigma \circ \lambda_{\prof}) ≠ \emptyset
+			\exists \sigma \in \Sigma \suchthat \forall \prof \in \linors^N: f(\prof) \cap \argmin_{\PO(\prof)} (\sigma \circ \lambda_{\prof}) ≠ \emptyset
 		\end{equation}
 	\end{block}
 	Recall:
 	\begin{block}{Egalitarian compromise compatibility}
 		An \ac{SCR} $f$ is \ac{ECC} iff 
 		\begin{equation}
-			\exists \sigma \in \Sigma \suchthat \forall \prof \in \linors^N: f(\prof) \cap \argmin_A (\sigma \circ \lambda_{\prof}) ≠ \emptyset
+			\exists \sigma \in \Sigma \suchthat \forall \prof \in \linors^N: f(\prof) \cap \argmin_\allalts (\sigma \circ \lambda_{\prof}) ≠ \emptyset
 		\end{equation}
 	\end{block}
 \end{frame}
 
+\subsection{Two remarks}
 \begin{frame}
 	\frametitle{Paretian compromises and Paretianism}
 	PCC does not \emph{require} Paretianism, but is \emph{compatible} with it.
@@ -408,8 +320,7 @@
 \begin{frame}[fragile]
 	\frametitle{About our inequality measures}
 	Note that $\Sigma$ contains \emph{all} inequality measures that say that constant vectors are the most equal of all.
-	\begin{example}[A PCC and Paretian \ac{SCR}]
-		Consider $f^\sigma = \argmin_{\PO(\prof)} (\sigma \circ \lambda_{\prof})$.
+	\begin{example}[Constraint imposed by PCC]
 		\begin{center}
 			\begin{tikzpicture}
 				\path node (P) {$\prof$};
@@ -435,55 +346,66 @@
 				}
 			\end{tikzpicture}
 		\end{center}
-		\onslide<2>{$f^\sigma$ may pick $a$ or $d$, depending on $\sigma$}
+		\onslide<2>{A PCC $f$ must pick at least one among $a$ and $d$ (depending on $\sigma$)}
 	\end{example}
 \end{frame}
 
 \section{Comparison}
 \subsection{BK compromises}
 \begin{frame}
-	\frametitle{$\BK[n]$ is not ECC}
-	Recall that $\rho_n$ is the best rank at which some alternative receives unanimous support. $\BK[n]$ (Fallback bargaining) selects the best supported alternatives at rank $\rho_n$.
-	\begin{example}[${\BK[n]}$]
-		$\begin{array}{rl|l}
-			3 \text{ voters} & x \pref y &\pref z\\%
-			2 \text{ voters} & y \pref x &\pref z\\%
+	\frametitle{BK compromise}
+	\citet{Brams2001} compromise
+	\begin{itemize}
+		\item Denoted by $\BK[q]$, with $q \in \intvl{1, n}$
+		\item A voter \emph{supports} an alternative at rank $r$ iff she places this alternative at $r$ or better
+		\item $\rho_q$: best rank for which some alternative receives $≥ q$ supports
+		\item $\BK$ selects the best supported alternatives at rank $\rho_q$
+	\end{itemize}
+	\begin{example}[{$\BK[3]$}]
+		$\begin{array}{r@{\hspace{1mm} \mapsto \hspace{1mm}}l}
+			1 & a \pref b \pref c \pref d\\%
+			2 & c \pref b \pref a \pref d\\%
+			3 & b \pref c \pref d \pref a\\%
+			4 & c \pref a \pref d \pref b\\%
+			5 & d \pref c \pref b \pref a\\%
 		\end{array}$
-		\hspace{2cm} $\BK[n]$ selects? \onslide<2>{$\set{x, y}$}
+		\hspace{2cm} $\BK[3]$ selects? \onslide<2>{$\set{c}$ ($\rho_3 = 2$)}
 	\end{example}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Sorts of BK compromises}
+	$\BK[\ceil{n / 2}]$ : Majoritarian compromise \citep{Sertel1999} (also “Bucklin” \citep{Erdelyi2015})
+	\begin{block}{\citet[abstract]{Sertel1999}}
+		\og{}The Majoritarian Compromise is “majoritarian approving” i.e. it always picks “what’s good for a majority” (alternatives which some majority regards as among the better “effective” half of the available alternatives).\fg{}
+	\end{block}
+	$\BK[n]$: Fallback bargaining
+%	\begin{itemize}
+%		\item $\rho_n$: the best rank at which some alternative receives unanimous support. $\BK[n]$ selects the best supported alternatives at rank $\rho_n$.
+%	\end{itemize}
+	\begin{example}[${\BK[n]}$]
+		$\begin{array}{rl}
+			3 \text{ voters} & a_1 \pref a_2 \pref a_3 \pref a_4\\%
+			2 \text{ voters} & a_2 \pref a_1 \pref a_4 \pref a_3\\%
+		\end{array}$
+		\hspace{2cm} $\BK[n]$ selects? \onslide<2>{$\set{a_1, a_2}$}
+	\end{example}
+\end{frame}
+
+\begin{frame}
+	\frametitle{$\BK, q \in \intvl{1, n}$ is not ECC}
 	\begin{theorem}
-		$\BK[n]$ is not ECC.\hfill {\small (for $m, n ≥ 2$)}
+		$\BK$ is not ECC.\hfill {\small (for $m, n ≥ 2$)}
 	\end{theorem}
 	\begin{proof}
-		\only<1>{?}\onslide<2>{$\BK[n]$ is Paretian.}
+		$\BK$ is Paretian: consider an alternative $x$ supported by voters $V \subseteq N$ at some rank $r$ and $y \prefi x, \forall i \in V$. Then, the voters in $V$ support $y$ at rank $r$, and never rank $y$ at rank $r$ (as $x$ is at rank $r$ or better). Thus, $V$ supported $y$ already at a better rank. 
+		
+		The winners in $\BK$ gather $q' ≥ q$ supports at $\rho_q$, and any Pareto-dominating alternative would gather $q' ≥ q$ supports at a better rank. Thus, $\BK$ may not select a Pareto-dominated alternative.
 	\end{proof}
 \end{frame}
 
 \begin{frame}
-	\frametitle{$\BK[n]$ is PCC}
-	\begin{theorem}
-		$\BK[n]$ is PCC.
-	\end{theorem}
-	\begin{proof}[Proof sketch]
-		Define $\sigma^\text{discrete}(l) = 1 ⇔ l$ is not constant.
-		We prove that $\BK[n] \subseteq \argmin_{\PO(\prof)} (\sigma^\text{discrete} \circ \lprof)$.
-
-		If $\prof$ has no constant loss vectors, $\sigma$ does not discriminate among $\PO(\prof)$, thus Paretianism suffices.
-
-		Otherwise, there is exactly one constant loss vector in $\PO(\prof)$, $\rho_n$ is the corresponding rank, and $\BK[n]$ selected the corresponding alternative.
-	\end{proof}
-	For example: 
-%	\begin{example}[Multiple constant loss vectors]
-		$\begin{array}{l}
-			a_1 \pref a_2 \pref a_3 \pref a_4 \pref a_5\\
-			a_2 \pref a_4 \pref a_3 \pref a_1 \pref a_5\\
-		\end{array}$
-		has $a_5 \notin \PO(\prof)$.
-%	\end{example}
-\end{frame}
-
-\begin{frame}
-	\frametitle{BK compromises}
+	\frametitle{BK compromises (q ≠ n) are not PCC}
 	\begin{theorem}
 		$\BK, q \in \intvl{1, n - 1}$ is neither ECC nor PCC.\hfill {\small (for $m ≥ 3, n ≥ 2$)}
 	\end{theorem}
@@ -493,12 +415,31 @@
 			1 &\text{ voter} & z \pref y \pref … \pref x\\%
 		\end{array}$%
 		\begin{itemize}
-			\item $\rho_q = 1$ thus $y \notin f_q(\prof)$
+			\item $\rho_q = 1$ thus $y \notin \BK(\prof)$
 			\item $\argmin_{\allalts} (\sigma \circ \lprof) = \set{y}$, thus $f \in ECC ⇒ y \in f(\prof)$
-			\item $\argmin_{\PO(\allalts)} (\sigma \circ \lprof) = \set{y}$, thus $f \in PCC ⇒ y \in f(\prof)$\qedhere
+			\item $\argmin_{\PO(\prof)} (\sigma \circ \lprof) = \set{y}$, thus $f \in PCC ⇒ y \in f(\prof)$\qedhere
 		\end{itemize}
 	\end{proof}
-	We see that PCC (and ECC) rules are \emph{very} egalitarian
+	(This also proves more directly that $\BK, q \in \intvl{1, n - 1}$ fails ECC)
+\end{frame}
+
+\begin{frame}
+	\frametitle{$\BK[n]$ is PCC}
+	Showing that $\BK[n]$ is not PCC requires to restrict $\Sigma$
+	\begin{theorem}
+		$\BK[n]$ is PCC.
+	\end{theorem}
+	\begin{proof}[Proof sketch]
+		Define $\sigma^\text{discrete}(l) = 1 ⇔ l$ is not constant.
+		We prove that $\BK[n] \subseteq \argmin_{\PO(\prof)} (\sigma^\text{discrete} \circ \lprof)$.
+		
+		If some $x \in \PO(\prof)$ has a constant loss vector, e.\ g.\ $\begin{array}{l}
+			a_1 \pref a_2 \pref a_3 \pref a_4 \pref a_5 \pref a_6\\
+			a_5 \pref a_4 \pref a_3 \pref a_1 \pref a_2 \pref a_6\\
+		\end{array}$, there is exactly one such alternative, $\rho_n$ is its rank, and $\BK[n](\prof) = \set{x}$.
+
+		Otherwise, $\sigma$ does not discriminate among $\PO(\prof)$, thus Paretianism suffices.
+	\end{proof}
 \end{frame}
 
 \subsection{Condorcet rules}
@@ -588,11 +529,11 @@
 		\item Example: $w = (3, 3, 3, 0)$
 	\end{itemize}
 	\begin{theorem}
-		Given an AP $w$, $f^w$ is PCC.
+		Given an AP $w$, $f^w$ is PCC \hfill {\small (for $m ≥ 2$)}
 	\end{theorem}
 	\begin{proof}[Proof idea]
 		Define $\sigma^\text{discrete}(l) = 1 ⇔ l$ is not constant.
-		To prove: $\exists x \in f^w(\prof) \cap \argmin_{\PO(\allalts)} (\sigma^\text{discrete} \circ \lprof)$.
+		To prove: $\exists x \in f^w(\prof) \cap \argmin_{\PO(\prof)} (\sigma^\text{discrete} \circ \lprof)$.
 		
 		Assume $\prof$ contains some $x \in \PO(\prof)$ with a constant loss vector, e.\ g.\ 
 		$\begin{array}{l}
@@ -617,10 +558,11 @@
 			m - 1 ≤ i ≤ n & a_1 \pref … \pref a_m \pref a_{m - 1}\\%
 		\end{array}$%
 		\begin{itemize}
-			\item $\argmin_{\PO(\allalts)} (\sigma \circ \lprof) = \set{a_m}$, thus $f \in PCC ⇒ a_m \in f(\prof)$
-			\item For $n$ big enough, $(s \circ \lprof)(a_1) > (s \circ \lprof)(a_m)$, thus $a_m \notin f^w(\prof)$ \qedhere
+			\item $\argmin_{\PO(\prof)} (\sigma \circ \lprof) = \set{a_m}$, thus $f \in PCC ⇒ a_m \in f(\prof)$
+			\item For $n$ large enough, $(s \circ \lprof)(a_1) > (s \circ \lprof)(a_m)$, thus $a_m \notin f^w(\prof)$ \qedhere
 		\end{itemize}
 	\end{proof}
+	We see that PCC rules are \emph{very} egalitarian
 \end{frame}
 
 \subsection{Restricting \texorpdfstring{$\Sigma$}{Sigma}}
@@ -634,7 +576,7 @@
 	\begin{definition}[Condition $C_{m, n}$]
 		Given $m ≥ 4, n ≥ \max\set{4, m - 1}$, $\sigma$ satisfies condition $C_{m, n}$ iff $\sigma(m - 3, m - 1, m - 2, …, m - 2) < \sigma(m - 2, m - 3, …, 1, 0, …, 0)$.
 	\end{definition}
-	\begin{example}[Examples of conditions $C$]
+	\begin{example}%[Examples of conditions $C$]
 		$C_{5, 4}$ requires $\sigma(2, 4, 3, 3) < \sigma(3, 2, 1, 0)$.
 
 		$C_{6, 5}$ requires $\sigma(3, 5, 4, 4, 4) < \sigma(4, 3, 2, 1, 0)$.
@@ -659,9 +601,10 @@
 			\item and $x \in \PO(\prof)$, thus $y \notin \argmin_{\PO(\prof)}(\sigma \circ \lprof)$ \qedhere
 		\end{itemize}
 	\end{proof}
+	We see (again) that PCC rules are \emph{very} egalitarian
 \end{frame}
 
-\section{Two Individuals}
+\section{Two individuals}
 \subsection{\texorpdfstring{$\BK[n = 2]$}{BK for two individuals}}
 \begin{frame}
 	\frametitle{Bargaining contexts}
@@ -669,14 +612,14 @@
 		\item We see that our compromise rules place an important emphasis on equality
 		\item This might be particularly justified in bargaining contexts
 		\item Appears comparatively harder to justify in voting contexts
-		\item \citet{Brams2001} indicates that they do not recommend their rule ($\BK[n]$) particularly in bargaining contexts
+		\item \citet{Brams2001} indicate that they recommend the rule $\BK[n]$ particularly in bargaining contexts
 		\item Let’s see how $\BK[n = 2]$ relate to PCC
 	\end{itemize}
 \end{frame}
 
 \begin{frame}
 	\frametitle{Restricting $\Sigma$ for two individuals}
-	We already know that $\BK[n = 2]$ is not PCC, so let us restrict $\Sigma$
+	Showing that $\BK[n = 2]$ is not PCC requires to restrict $\Sigma$
 	\begin{definition}[Condition $D_m$]
 		Given $m ≥ 7$ odd, $\sigma$ satisfies condition $D_m$ iff $\sigma(\frac{m - 1}{2} + 1, \frac{m - 1}{2} - 1) < \sigma(0, \frac{m - 1}{2})$
 	\end{definition}
@@ -689,6 +632,7 @@
 
 \begin{frame}
 	\frametitle{$\BK[n = 2]$ is not PCC under condition $D$}
+	\label{sl:bknnotpcc}
 	\begin{theorem}
 		Given $m ≥ 7$ odd and $n = 2$, under condition $D_m$, $\BK[n]$ is not PCC.
 	\end{theorem}
@@ -699,7 +643,7 @@
 			1 & x &\pref a_1 &\pref a_2 &\pref … &\pref a_\alpha &\pref y &\pref b_1 &\pref … &\pref b_\beta\\
 			2 & b_1 &\pref … &\pref b_\beta &\pref y &\pref x &\pref a_1 &\pref a_2 &\pref … &\pref a_\alpha\\
 		\end{array}$%
-		\begin{itemize}
+		\begin{itemize} 
 			\item $\BK[n] = \set{x}$
 			\item $\lprof(y) = (\alpha + 1, \beta)$, $\lprof(x) = (0, \beta + 1)$ thus $(\sigma \circ \lprof)(y) < (\sigma \circ \lprof)(x)$ \hfill {\small [$\lprof(y) = (5, 3)$, $\lprof(x) = (0, 4)$]}
 			\item and $y \in \PO(\prof)$, thus $x \notin \argmin_{\PO(\prof)}(\sigma \circ \lprof)$ \qedhere
@@ -707,15 +651,26 @@
 	\end{proof}
 \end{frame}
 
+\subsection{Other rules}
+\begin{frame}
+	\frametitle{Other two person bargaining rules}
+	Similar results hold for: 
+	\begin{itemize}
+		\item $\BK[n]$, $m$ even
+		\item Pareto-and-Veto rules \citep{Laslier2020}
+		\item Veto-Rank mechanism \citep{Clippel2014}
+		\item Shortlisting \citep{Clippel2014}
+	\end{itemize}
+	The proofs are very similar to the one just shown.
+\end{frame}
+
 \subsection{Discussion}
 \begin{frame}
 	\frametitle{Discussion}
 	\begin{itemize}
-		\item Our compromises insist that everybody concede
-		\item Pick alternatives leading to most equal losses
-		\item Heavy focus on equality
+		\item Our compromises try to make everybody concede equally
 		\item Disagree with many rules
-		\item Might be considered too strong, but (I’d argue) interesting to study conceptually
+		\item Might be considered too egalitarian, but (I’d argue) interesting to study conceptually
 		\item Might lead to question Pareto in favor of equality (already studied?)
 		\item Possibly fitting some bargaining behavior (think about ultimatum games)
 	\end{itemize}
@@ -732,6 +687,45 @@
 \appendix
 \AtBeginSection{
 }
+%- Appendix: I put a before b from my own perspective; but considering 1’s POV, I prefer b to a: either because I am envious, or even one could say that my objective interest is that b > a, even when I ignore that a is there. When my pref chg because of someone else, it is considered envy, but it may be about my interest.
+%- Not ashamed of this very egalitarian focus but we’re willing to compromise to cope with classical demands of our fellow economist colleagues.
+
+\section{Plurality}
+\begin{frame}
+	\frametitle{Plurality}
+	Plurality selects the alternatives most often at first rank
+	\begin{example}[Plurality]
+		$\begin{array}{r@{\hspace{1mm} \mapsto \hspace{1mm}}l}
+			1 & a \pref b \pref c \pref d\\%
+			2 & a \pref b \pref c \pref d\\%
+			3 & b \pref c \pref d \pref a\\%
+			4 & c \pref b \pref d \pref a\\%
+			5 & d \pref b \pref c \pref a\\%
+		\end{array}$
+		\hspace{2cm} Plurality selects? \onslide<2>{$\set{a}$}
+		
+		\vspace{1em}
+		Here, Plurality only “considers” a minority of individuals.
+	\end{example}
+\end{frame}
+
+\section{Ex-ante compromises}
+\begin{frame}
+	\frametitle{A compromise may be exclusively ex-ante}
+	\begin{example}[{$\BK[51]$}]
+		$\begin{array}{rl}
+			49\text{ voters} & a \pref b \pref c\\%
+			51\text{ voters} & c \pref b \pref a\\%
+		\end{array}$
+		\hspace{2cm} $\BK[51]$ selects? \onslide<2>{$\set{c}$ ($\rho_{51} = 1$)}
+	\end{example}
+	\begin{itemize}
+		\item Actually \emph{nobody} conceded anything here
+		\item “Ex-ante” compromise: a priori willingness to compromise may not require compromising
+		\item Observation holds for any $q \in \intvl{1, n - 1}$
+		\item See Slide \ref{sl:bknnotpcc} for an application to the case $q = n$
+	\end{itemize}
+\end{frame}
 
 %\clearpage\pdfbookmark[2]{\refname}{\refname}
 \begin{frame}[allowframebreaks]
